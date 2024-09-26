@@ -1,0 +1,2 @@
+# -flutter_cartesian_chart_show_tracker_stacked_column_series
+ flutter_cartesian_chart_show_tracker_stacked_column_series
