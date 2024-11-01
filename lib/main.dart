@@ -23,22 +23,22 @@ class _ShowTracker extends StatefulWidget {
 }
 
 class _ShowTrackerState extends State<_ShowTracker> {
-  List<ChartSampleData> chartData1 = [
+  List<ChartSampleData> stackedColumnData1 = [
     ChartSampleData(DateTime(2023, 02, 02, 05), 35),
     ChartSampleData(DateTime(2023, 02, 02, 06), 28),
     ChartSampleData(DateTime(2023, 02, 02, 08), 34),
   ];
-  List<ChartSampleData> chartData2 = [
+  List<ChartSampleData> stackedColumnData2 = [
     ChartSampleData(DateTime(2023, 02, 02, 05), 35),
     ChartSampleData(DateTime(2023, 02, 02, 06), 28),
     ChartSampleData(DateTime(2023, 02, 02, 07), 34),
   ];
-  List<ChartSampleData> chartData3 = [
+  List<ChartSampleData> stackedColumnData3 = [
     ChartSampleData(DateTime(2023, 02, 02, 06), 35),
     ChartSampleData(DateTime(2023, 02, 02, 07), 28),
     ChartSampleData(DateTime(2023, 02, 02, 09), 120),
   ];
-  List<ChartSampleData> chartData4 = [
+  List<ChartSampleData> columnData = [
     ChartSampleData(DateTime(2023, 02, 02, 05), 0),
     ChartSampleData(DateTime(2023, 02, 02, 06), 0),
     ChartSampleData(DateTime(2023, 02, 02, 07), 0),
@@ -46,27 +46,9 @@ class _ShowTrackerState extends State<_ShowTracker> {
     ChartSampleData(DateTime(2023, 02, 02, 09), 0),
   ];
 
-  final List<Color> _paletteColors = [
-    const Color.fromRGBO(6, 174, 224, 1),
-    const Color.fromRGBO(99, 85, 199, 1),
-    const Color.fromRGBO(49, 90, 116, 1),
-    const Color.fromRGBO(255, 180, 0, 1),
-    const Color.fromRGBO(150, 60, 112, 1),
-    const Color.fromRGBO(33, 150, 245, 1),
-    const Color.fromRGBO(71, 59, 137, 1),
-    const Color.fromRGBO(236, 92, 123, 1),
-    const Color.fromRGBO(59, 163, 26, 1),
-    const Color.fromRGBO(236, 131, 23, 1)
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Syncfusion Flutter Chart',
-        ),
-      ),
       body: SfCartesianChart(
         enableSideBySideSeriesPlacement: false,
         primaryXAxis: const DateTimeAxis(),
@@ -77,32 +59,26 @@ class _ShowTrackerState extends State<_ShowTracker> {
         ),
         series: <CartesianSeries<ChartSampleData, DateTime>>[
           ColumnSeries<ChartSampleData, DateTime>(
-            dataSource: chartData4,
-            xValueMapper: (ChartSampleData sales, _) => sales.year,
-            yValueMapper: (ChartSampleData sales, _) => sales.sales,
+            dataSource: columnData,
+            xValueMapper: (ChartSampleData data, int index) => data.x,
+            yValueMapper: (ChartSampleData data, int index) => data.y,
             isVisibleInLegend: false,
             isTrackVisible: true,
           ),
           StackedColumnSeries<ChartSampleData, DateTime>(
-            dataSource: chartData1,
-            xValueMapper: (ChartSampleData sales, _) => sales.year,
-            yValueMapper: (ChartSampleData sales, int index) => sales.sales,
-            name: 'Chart 1',
-            color: _paletteColors[0],
+            dataSource: stackedColumnData1,
+            xValueMapper: (ChartSampleData data, int index) => data.x,
+            yValueMapper: (ChartSampleData data, int index) => data.y,
           ),
           StackedColumnSeries<ChartSampleData, DateTime>(
-            dataSource: chartData2,
-            xValueMapper: (ChartSampleData sales, _) => sales.year,
-            yValueMapper: (ChartSampleData sales, _) => sales.sales,
-            name: 'Chart 2',
-            color: _paletteColors[1],
+            dataSource: stackedColumnData2,
+            xValueMapper: (ChartSampleData data, int index) => data.x,
+            yValueMapper: (ChartSampleData data, int index) => data.y,
           ),
           StackedColumnSeries<ChartSampleData, DateTime>(
-            dataSource: chartData3,
-            xValueMapper: (ChartSampleData sales, _) => sales.year,
-            yValueMapper: (ChartSampleData sales, _) => sales.sales,
-            name: 'Chart 3',
-            color: _paletteColors[2],
+            dataSource: stackedColumnData3,
+            xValueMapper: (ChartSampleData data, int index) => data.x,
+            yValueMapper: (ChartSampleData data, int index) => data.y,
           ),
         ],
       ),
@@ -111,8 +87,8 @@ class _ShowTrackerState extends State<_ShowTracker> {
 }
 
 class ChartSampleData {
-  ChartSampleData(this.year, this.sales);
+  ChartSampleData(this.x, this.y);
 
-  final DateTime? year;
-  final double? sales;
+  final DateTime x;
+  final double y;
 }
