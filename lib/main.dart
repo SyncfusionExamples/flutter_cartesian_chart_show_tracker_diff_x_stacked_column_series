@@ -10,75 +10,75 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-      home: _ShowTracker(),
+      home: const _ShowTracker(),
     );
   }
 }
 
 class _ShowTracker extends StatefulWidget {
-  _ShowTracker({super.key});
+  const _ShowTracker({super.key});
 
   @override
   _ShowTrackerState createState() => _ShowTrackerState();
 }
 
 class _ShowTrackerState extends State<_ShowTracker> {
-  List<ChartSampleData> stackedColumnData1 = [
-    ChartSampleData(DateTime(2023, 02, 02, 05), 35),
-    ChartSampleData(DateTime(2023, 02, 02, 06), 28),
-    ChartSampleData(DateTime(2023, 02, 02, 08), 34),
+  List<ChartData> stackedColumnData1 = [
+    ChartData(DateTime(2023, 02, 02, 05), 35),
+    ChartData(DateTime(2023, 02, 02, 06), 28),
+    ChartData(DateTime(2023, 02, 02, 08), 34),
   ];
-  List<ChartSampleData> stackedColumnData2 = [
-    ChartSampleData(DateTime(2023, 02, 02, 05), 35),
-    ChartSampleData(DateTime(2023, 02, 02, 06), 28),
-    ChartSampleData(DateTime(2023, 02, 02, 07), 34),
+  List<ChartData> stackedColumnData2 = [
+    ChartData(DateTime(2023, 02, 02, 05), 35),
+    ChartData(DateTime(2023, 02, 02, 06), 28),
+    ChartData(DateTime(2023, 02, 02, 07), 34),
   ];
-  List<ChartSampleData> stackedColumnData3 = [
-    ChartSampleData(DateTime(2023, 02, 02, 06), 35),
-    ChartSampleData(DateTime(2023, 02, 02, 07), 28),
-    ChartSampleData(DateTime(2023, 02, 02, 09), 120),
+  List<ChartData> stackedColumnData3 = [
+    ChartData(DateTime(2023, 02, 02, 06), 35),
+    ChartData(DateTime(2023, 02, 02, 07), 28),
+    ChartData(DateTime(2023, 02, 02, 09), 120),
   ];
-  List<ChartSampleData> columnData = [
-    ChartSampleData(DateTime(2023, 02, 02, 05), 0),
-    ChartSampleData(DateTime(2023, 02, 02, 06), 0),
-    ChartSampleData(DateTime(2023, 02, 02, 07), 0),
-    ChartSampleData(DateTime(2023, 02, 02, 08), 0),
-    ChartSampleData(DateTime(2023, 02, 02, 09), 0),
+  List<ChartData> columnData = [
+    ChartData(DateTime(2023, 02, 02, 05), 0),
+    ChartData(DateTime(2023, 02, 02, 06), 0),
+    ChartData(DateTime(2023, 02, 02, 07), 0),
+    ChartData(DateTime(2023, 02, 02, 08), 0),
+    ChartData(DateTime(2023, 02, 02, 09), 0),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SfCartesianChart(
-        enableSideBySideSeriesPlacement: false,
         primaryXAxis: const DateTimeAxis(),
         primaryYAxis: const NumericAxis(),
         legend: const Legend(
           isVisible: true,
           position: LegendPosition.bottom,
         ),
-        series: <CartesianSeries<ChartSampleData, DateTime>>[
-          ColumnSeries<ChartSampleData, DateTime>(
+        enableSideBySideSeriesPlacement: false,
+        series: <CartesianSeries<ChartData, DateTime>>[
+          ColumnSeries<ChartData, DateTime>(
             dataSource: columnData,
-            xValueMapper: (ChartSampleData data, int index) => data.x,
-            yValueMapper: (ChartSampleData data, int index) => data.y,
+            xValueMapper: (ChartData data, int index) => data.x,
+            yValueMapper: (ChartData data, int index) => data.y,
             isVisibleInLegend: false,
             isTrackVisible: true,
           ),
-          StackedColumnSeries<ChartSampleData, DateTime>(
+          StackedColumnSeries<ChartData, DateTime>(
             dataSource: stackedColumnData1,
-            xValueMapper: (ChartSampleData data, int index) => data.x,
-            yValueMapper: (ChartSampleData data, int index) => data.y,
+            xValueMapper: (ChartData data, int index) => data.x,
+            yValueMapper: (ChartData data, int index) => data.y,
           ),
-          StackedColumnSeries<ChartSampleData, DateTime>(
+          StackedColumnSeries<ChartData, DateTime>(
             dataSource: stackedColumnData2,
-            xValueMapper: (ChartSampleData data, int index) => data.x,
-            yValueMapper: (ChartSampleData data, int index) => data.y,
+            xValueMapper: (ChartData data, int index) => data.x,
+            yValueMapper: (ChartData data, int index) => data.y,
           ),
-          StackedColumnSeries<ChartSampleData, DateTime>(
+          StackedColumnSeries<ChartData, DateTime>(
             dataSource: stackedColumnData3,
-            xValueMapper: (ChartSampleData data, int index) => data.x,
-            yValueMapper: (ChartSampleData data, int index) => data.y,
+            xValueMapper: (ChartData data, int index) => data.x,
+            yValueMapper: (ChartData data, int index) => data.y,
           ),
         ],
       ),
@@ -86,8 +86,8 @@ class _ShowTrackerState extends State<_ShowTracker> {
   }
 }
 
-class ChartSampleData {
-  ChartSampleData(this.x, this.y);
+class ChartData {
+  ChartData(this.x, this.y);
 
   final DateTime x;
   final double y;
